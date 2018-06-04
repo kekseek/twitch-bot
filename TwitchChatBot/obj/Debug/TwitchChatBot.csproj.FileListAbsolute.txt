@@ -1,0 +1,13 @@
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.csprojAssemblyReference.cache
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.Form1.resources
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.Properties.Resources.resources
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.csproj.GenerateResource.cache
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.csproj.CoreCompileInputs.cache
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\bin\Debug\TwitchChatBot.exe.config
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\bin\Debug\TwitchChatBot.exe
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\bin\Debug\TwitchChatBot.pdb
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.exe
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.pdb
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\bin\Debug\Newtonsoft.Json.dll
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\bin\Debug\Newtonsoft.Json.xml
+D:\Users\wadim_de_leezo\source\repos\TwitchChatBot\TwitchChatBot\obj\Debug\TwitchChatBot.csproj.CopyComplete
