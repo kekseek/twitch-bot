@@ -23,7 +23,7 @@ namespace TwitchChatBot {
         public MessagesScanner(Label aLabel) {
             sendMessageQueue = new Queue<string>();
             Form1ChatLabel = aLabel;
-            userName = "PUT_YOUR_TWITCH_LOGIN_NAME_HERE".ToLower();
+            userName = "kekseek228".ToLower();
             channelName = userName;
             password = File.ReadAllText("password.txt");  // go to file password.txt
             chatCommandId = "PRIVMSG";
