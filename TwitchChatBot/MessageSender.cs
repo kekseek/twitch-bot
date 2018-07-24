@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
@@ -9,31 +8,27 @@ using System.Text;
 using Newtonsoft.Json;
 
 namespace TwitchChatBot {
-    public partial class Form1 : Form {
-        TcpClient tcpClient;
-        StreamReader reader;
-        StreamWriter writer;
+    class MessagesScanner {
+        private TcpClient tcpClient;
+        private StreamReader reader;
+        private StreamWriter writer;
+        private Label Form1ChatLabel;
 
         readonly string userName, password, channelName, chatCommandId, chatMessagePrefix;
-        DateTime lastMessage;
+        private DateTime lastMessage;
 
-        Queue<string> sendMessageQueue;
+        private Queue<string> sendMessageQueue;
 
         /* request */
-        public Form1() {
+        public MessagesScanner(Label aLabel) {
             sendMessageQueue = new Queue<string>();
-
-            // PUT YOUR TWITCH USERNAME HERE 
-            this.userName = "".ToLower(); 
-            this.channelName = userName;
-
-            // PUT YOUR OAUTH TOKEN IN PASSWORD.TXT. with format "oauth:...." 
-            this.password = File.ReadAllText("password.txt");
-
+            Form1ChatLabel = aLabel;
+            userName = "PUT_YOUR_TWITCH_LOGIN_NAME_HERE".ToLower();
+            channelName = userName;
+            password = File.ReadAllText("password.txt");  // go to file password.txt
             chatCommandId = "PRIVMSG";
             chatMessagePrefix = $":{userName}!{userName}@{userName}.tmi.twitch.tv {chatCommandId} #{channelName} :";
-
-            InitializeComponent();
+            
             Reconnect();
         }
 
@@ -44,14 +39,14 @@ namespace TwitchChatBot {
             writer = new StreamWriter(tcpClient.GetStream());
 
             writer.WriteLine("PASS " + password + Environment.NewLine
-                + "NICK " + userName + Environment.NewLine 
+                + "NICK " + userName + Environment.NewLine
                 + "USER " + userName + " 8 * :" + userName);
-            writer.WriteLine(String.Format("JOIN #{0}", this.userName));
+            writer.WriteLine("JOIN #kekseek228");
             writer.Flush();
             lastMessage = DateTime.Now;
         }
 
-        void timer1_Tick(object sender, EventArgs e) {
+        public void TimerTick() {
             if (!tcpClient.Connected) {
                 Reconnect();
             }
@@ -60,16 +55,8 @@ namespace TwitchChatBot {
             TryReceiveMessages();
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
-
-        }
-
-        private void aLabel_Click(object sender, EventArgs e) {
-
-        }
-
         /* try to get message from queue and display it */
-        void TrySendingMessages() {
+        private void TrySendingMessages() {
             if (DateTime.Now - lastMessage > TimeSpan.FromSeconds(10)) {
                 if (sendMessageQueue.Count > 0) {
                     var message = sendMessageQueue.Dequeue();
@@ -81,7 +68,7 @@ namespace TwitchChatBot {
         }
 
         /* receive and add to queue chat messages */
-        void TryReceiveMessages() {
+        private void TryReceiveMessages() {
             if (tcpClient.Available > 0 || reader.Peek() > 0) {
                 var message = reader.ReadLine();
 
@@ -104,8 +91,8 @@ namespace TwitchChatBot {
             }
         }
 
-        void ReceiveMessage(string speaker, string message) {
-            aLabel.Text += $"\r\n {speaker}: {message}";
+        private void ReceiveMessage(string speaker, string message) {
+            Form1ChatLabel.Text += $"\r\n {speaker}: {message}";
 
             /* react to some keywords in chat
              * list of words: !hi, !roll, !wiki */
@@ -122,7 +109,7 @@ namespace TwitchChatBot {
             // wikipedia search
             if (message.StartsWith("!wiki") && message.Length > 6) {
                 string search = WebUtility.UrlEncode(message.Substring(6));
-                string url = String.Format("https://ru.wikipedia.org/w/api.php?action=opensearch&search={0}&prop=info&format=json&inprop=url", 
+                string url = String.Format("https://ru.wikipedia.org/w/api.php?action=opensearch&search={0}&prop=info&format=json&inprop=url",
                     search);
 
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -134,8 +121,8 @@ namespace TwitchChatBot {
                 }
             }
         }
-        
-        void SendMessage(string message) {
+
+        private void SendMessage(string message) {
             sendMessageQueue.Enqueue(message);
         }
     }
