@@ -8,24 +8,31 @@ using System.Text;
 using Newtonsoft.Json;
 
 namespace TwitchChatBot {
+
+    /// <summary>
+    /// Class that recieve and send messages. 
+    /// </summary>
     class MessagesScanner {
         private TcpClient tcpClient;
         private StreamReader reader;
         private StreamWriter writer;
         private Label Form1ChatLabel;
 
-        readonly string userName, password, channelName, chatCommandId, chatMessagePrefix;
+        private string userName, password, channelName, chatCommandId, chatMessagePrefix;
         private DateTime lastMessage;
 
         private Queue<string> sendMessageQueue;
 
         /* request */
+        /// <summary>
+        ///  
+        /// </summary>
         public MessagesScanner(Label aLabel) {
             sendMessageQueue = new Queue<string>();
             Form1ChatLabel = aLabel;
-            userName = "kekseek228".ToLower();
+            userName = Data.TwitchLogin.ToLower();
             channelName = userName;
-            password = File.ReadAllText("password.txt");  // go to file password.txt
+            password = Data.OauthToken; 
             chatCommandId = "PRIVMSG";
             chatMessagePrefix = $":{userName}!{userName}@{userName}.tmi.twitch.tv {chatCommandId} #{channelName} :";
             
@@ -92,8 +99,8 @@ namespace TwitchChatBot {
         }
 
         private void ReceiveMessage(string speaker, string message) {
-            Form1ChatLabel.Text += $"\r\n {speaker}: {message}";
-
+            Form1ChatLabel.Text += $"\r\n[{DateTime.Now}] {speaker}: {message}";
+            
             /* react to some keywords in chat
              * list of words: !hi, !roll, !wiki */
             if (message.StartsWith("!hi")) {

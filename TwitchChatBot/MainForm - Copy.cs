@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace TwitchChatBot {
     public partial class MainForm : Form {
-        MessagesScanner messagesScanner;
+        MessagesScanner<Label> messagesScanner;
 
         public MainForm() {
             InitializeComponent();
-            messagesScanner = new MessagesScanner(aLabel);
+            messagesScanner = new MessagesScanner<Label>(aLabel);
         }
 
         private void Timer1_Tick(object sender, EventArgs e) {
